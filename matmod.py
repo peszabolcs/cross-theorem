@@ -33,8 +33,15 @@ class Triangle:
     def plot(self):
         fig, ax = plt.subplots(figsize=(10, 10))
         ax.set_aspect('equal')
+        
+        # Set axis limits and show grid
         ax.set_xlim(-2, 10)
         ax.set_ylim(-2, 10)
+        ax.grid(True)
+        
+        # Add coordinate axes
+        ax.axhline(y=0, color='k', linestyle='-', linewidth=0.5)
+        ax.axvline(x=0, color='k', linestyle='-', linewidth=0.5)
         
         # Create the main triangle
         main_triangle = Polygon(self.points, alpha=0.5, color='blue')
@@ -113,6 +120,14 @@ class Triangle:
         plt.show()
 
 def plot_triangles(x_1: float, y_1: float, x_2: float, y_2: float, x_3: float, y_3: float):
+    # Ensure points are within the visible area
+    x_1 = max(-2, min(10, x_1))
+    y_1 = max(-2, min(10, y_1))
+    x_2 = max(-2, min(10, x_2))
+    y_2 = max(-2, min(10, y_2))
+    x_3 = max(-2, min(10, x_3))
+    y_3 = max(-2, min(10, y_3))
+    
     point_a = Point(x=x_1, y=y_1)
     point_b = Point(x=x_2, y=y_2)
     point_c = Point(x=x_3, y=y_3)
