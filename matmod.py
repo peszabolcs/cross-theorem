@@ -55,36 +55,42 @@ class Triangle:
             poly = Polygon(square, alpha=0.5, color='magenta')
             ax.add_patch(poly)
         
-        # Get the outer vertices of each square
+        # Get the outer vertices of each square and add labels
         outer_vertices = []
-        for square in square_vertices:
-            outer_vertices.append(square[3])  # Vertex closer to first point
-            outer_vertices.append(square[2])  # Vertex closer to second point
+        outer_labels = ['P', 'Q', 'R', 'S', 'T', 'U', 'V']
+        for i, square in enumerate(square_vertices):
+            # Add label for the outer vertex closer to the first point
+            outer_vertices.append(square[3])
+            ax.text(square[3][0], square[3][1], outer_labels[i*2], fontsize=12, ha='right', va='bottom')
+            
+            # Add label for the outer vertex closer to the second point
+            outer_vertices.append(square[2])
+            ax.text(square[2][0], square[2][1], outer_labels[i*2+1], fontsize=12, ha='right', va='bottom')
         
         # Create outer triangles
         # Triangle 1 (connecting points around point A)
         triangle1 = np.array([
-            outer_vertices[0],  # Vertex of A-B square closer to A
+            outer_vertices[0],  # Vertex P
             self.points[0],     # Point A
-            outer_vertices[5]   # Vertex of A-C square closer to A
+            outer_vertices[5]   # Vertex U
         ])
         poly1 = Polygon(triangle1, alpha=0.3, color='yellow')
         ax.add_patch(poly1)
         
         # Triangle 2 (connecting points around point B)
         triangle2 = np.array([
-            outer_vertices[1],  # Vertex of A-B square closer to B
+            outer_vertices[1],  # Vertex Q
             self.points[1],     # Point B
-            outer_vertices[2]   # Vertex of B-C square closer to B
+            outer_vertices[2]   # Vertex R
         ])
         poly2 = Polygon(triangle2, alpha=0.3, color='yellow')
         ax.add_patch(poly2)
         
         # Triangle 3 (connecting points around point C)
         triangle3 = np.array([
-            outer_vertices[3],  # Vertex of B-C square closer to C
+            outer_vertices[3],  # Vertex S
             self.points[2],     # Point C
-            outer_vertices[4]   # Vertex of A-C square closer to C
+            outer_vertices[4]   # Vertex T
         ])
         poly3 = Polygon(triangle3, alpha=0.3, color='yellow')
         ax.add_patch(poly3)
